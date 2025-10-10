@@ -1,0 +1,443 @@
+ejercicio 1.1 
+print(True and False)
+print(True or False)
+print(not True)
+print(not False)
+
+prediccion : 
+True
+True
+False
+True
+
+resultado:
+True
+True
+False
+True
+
+explicacion:
+con or devuelve True si al menos una condicion es verdadera 
+con and devuelve True si ambas condicion son falsas 
+y el not invierte el valor logico
+
+
+ejercicio1.2
+a, b, c = True, False, True
+
+print(a and b)  
+print(a or b)   
+print(b or c)   
+print(a and c)  
+
+predicciones: False, True, True, True
+
+resultado:
+False
+True
+True
+True
+
+explicacion:
+a and b → True and False → False
+a or b → True or False → True
+b or c → False or True → True
+a and c → True and True → True
+
+ejercicio 1.3
+
+a, b, c = True, False, True
+
+print(a and b or c)      # True
+print(a or b and c)      # True
+print(not a or b)        # False
+print(not (a or b))      # False
+
+
+predicciones: True, True, False, False
+
+ejercicio 1.4
+
+x = 5
+print(x > 3 and x < 10)  # True
+print(x < 3 or x > 10)   # False
+print(not x > 3)         # False
+
+prediccion: True, False, False
+
+ejercicio 1.5
+
+x = 5
+print(3 < x < 10)        # True
+print(1 <= x <= 3)       # False
+print(10 > x > 3)        # True
+
+prediccion: True, False, True
+
+ejercicio 2.1
+
+print("hola" and "mundo")  # "mundo"
+print("hola" and "")       # ""
+print("" and "mundo")      # ""
+print("hola" or "mundo")   # "hola"
+print("" or "mundo")       # "mundo"
+
+prediccion : " hola mundo", "", "", "hola", "mundo"
+explicacion:
+and devuelve el primer valor falso o el último verdadero.
+or devuelve el primer valor verdadero o el último falso.
+
+ejercicio 2.2
+
+print(bool(0))          # False
+print(bool(""))         # False
+print(bool([]))         # False
+print(bool([0]))        # True
+print(bool(" "))        # True
+print(bool(None))       # False
+
+prediccion: False, False, False, True, True, False
+
+explicacion:
+Falsy: 0, "", [], None se evalúan como False.
+
+Truthy:cualquier valor que no esté vacío o sea distinto de 0, por ejemplo [0] o " "
+
+ejercicio 2.3
+
+def f1():
+    print("f1 ejecutada")
+    return True
+
+def f2():
+    print("f2 ejecutada")
+    return False
+
+# Caso 1
+print("Caso 1:")
+resultado = f1() and f2()
+print(f"Resultado: {resultado}")
+
+# Caso 2
+print("\nCaso 2:")
+resultado = f2() and f1()
+print(f"Resultado: {resultado}")
+
+# Caso 3
+print("\nCaso 3:")
+resultado = f1() or f2()
+print(f"Resultado: {resultado}")
+
+prediccion:
+Caso 1: f1 ejecutada, f2 ejecutada Resultado: False
+Caso 2: f2 ejecutada  Resultado: False
+Caso 3: f1 ejecutada  Resultado: True
+
+ejercicio 2.4
+
+nums = [1, 2, 3, 4, 5]
+print(3 in nums)        # True
+print(6 in nums)        # False
+print(6 not in nums)    # True
+
+word = "Python"
+print("P" in word)      # True
+print("p" in word)      # False
+print("th" in word)     # True
+
+prediccion: True, False, True, True, False, True
+
+ejercicio 2.5
+
+lista1 = [1, 2, 3]
+lista2 = [1, 2, 3]
+lista3 = lista1
+
+print(lista1 == lista2)  # True
+print(lista1 is lista2)  # False
+print(lista1 == lista3)  # True
+print(lista1 is lista3)  # True
+
+prediccion: True, False, True, True
+
+ejercicio 3.1
+
+def validar_datos(nombre, email, edad, password):
+    return (nombre and 2 <= len(nombre) <= 30 and
+            email and '@' in email and
+            edad and edad >= 18 and
+            password and len(password) >= 8)
+
+# Pruebas
+print(validar_datos("Ana", "ana@email.com", 25, "secreto123"))  # Debe ser True
+print(validar_datos("", "no-email", 15, "123"))                 # Debe ser False
+
+ejercicio 3.2
+
+def puede_acceder(usuario, permiso_requerido, lista_negra):
+    return (usuario["autenticado"] and
+            (usuario["admin"] or permiso_requerido in usuario["permisos"]) and
+            usuario["id"] not in lista_negra)
+
+# Usuario ejemplo
+admin = {
+    "id": 1,
+    "autenticado": True,
+    "admin": True,
+    "permisos": ["leer", "escribir"]
+}
+
+usuario_normal = {
+    "id": 2,
+    "autenticado": True,
+    "admin": False,
+    "permisos": ["leer"]
+}
+
+usuario_bloqueado = {
+    "id": 3,
+    "autenticado": True,
+    "admin": False,
+    "permisos": ["leer", "escribir"]
+}
+
+lista_negra = [3, 4]
+
+print(puede_acceder(admin, "borrar", lista_negra))          # True
+print(puede_acceder(usuario_normal, "leer", lista_negra))   # True
+print(puede_acceder(usuario_normal, "escribir", lista_negra))  # False
+print(puede_acceder(usuario_bloqueado, "leer", lista_negra))   # False
+
+explicacion
+El usuario debe estar autenticado.
+Debe ser administrador o tener el permiso específico requerido.
+Su ID no debe estar en la lista negra (lista_negra).
+
+
+ejercicio 3.3
+
+def obtener_valor_seguro(diccionario, clave, predeterminado=None):
+    return diccionario[clave] if clave in diccionario else predeterminado
+
+# Pruebas
+config = {"timeout": 30, "retries": 3}
+
+print(obtener_valor_seguro(config, "timeout"))      # 30
+print(obtener_valor_seguro(config, "cache"))        # None
+print(obtener_valor_seguro(config, "cache", 60))    # 60
+
+
+ejercicio 3.4
+
+def filtrar_productos(productos, precio_min, precio_max, categoria=None):
+    return [
+        p for p in productos
+        if precio_min <= p["precio"] <= precio_max and
+           p["disponible"] and
+           (categoria is None or p["categoria"] == categoria)
+    ]
+
+# Datos de prueba
+productos = [
+    {"nombre": "Laptop", "precio": 1200, "categoria": "Electrónica", "disponible": True},
+    {"nombre": "Teléfono", "precio": 800, "categoria": "Electrónica", "disponible": False},
+    {"nombre": "Libro", "precio": 15, "categoria": "Libros", "disponible": True},
+    {"nombre": "Audífonos", "precio": 200, "categoria": "Electrónica", "disponible": True},
+]
+
+print(filtrar_productos(productos, 0, 500))
+print(filtrar_productos(productos, 100, 1000, "Electrónica"))
+
+
+ejercicio 3.5
+
+def evaluar_riesgo(cliente):
+    return (cliente["score_crediticio"] > 700 or
+            (cliente["ingreso_anual"] > 50000 and cliente["años_historial"] > 2) or
+            (cliente["vip"] and not cliente["deudas_pendientes"]))
+
+# Datos de prueba
+cliente1 = {
+    "nombre": "Ana García",
+    "score_crediticio": 720,
+    "ingreso_anual": 45000,
+    "años_historial": 3,
+    "vip": False,
+    "deudas_pendientes": False
+}
+
+cliente2 = {
+    "nombre": "Luis Pérez",
+    "score_crediticio": 680,
+    "ingreso_anual": 60000,
+    "años_historial": 4,
+    "vip": False,
+    "deudas_pendientes": False
+}
+
+cliente3 = {
+    "nombre": "Carmen Ruiz",
+    "score_crediticio": 690,
+    "ingreso_anual": 30000,
+    "años_historial": 1,
+    "vip": True,
+    "deudas_pendientes": False
+}
+
+print(evaluar_riesgo(cliente1))  # True
+print(evaluar_riesgo(cliente2))  # True
+print(evaluar_riesgo(cliente3))  # True
+
+explicacion
+Un cliente tiene bajo riesgo crediticio si cumple al menos una de estas condiciones:
+score_crediticio > 700
+(ingreso_anual > 50000 and años_historial > 2)
+(vip and not deudas_pendientes)
+
+
+proyecto final
+
+usuarios = [
+    {
+        "id": 1,
+        "nombre": "Admin",
+        "roles": ["admin"],
+        "permisos": ["leer", "escribir", "eliminar"],
+        "plan": "premium",
+        "activo": True,
+        "edad": 35
+    },
+    {
+        "id": 2,
+        "nombre": "Usuario Regular",
+        "roles": ["usuario"],
+        "permisos": ["leer"],
+        "plan": "basico",
+        "activo": True,
+        "edad": 17
+    },
+    {
+        "id": 3,
+        "nombre": "Usuario Premium Adulto",
+        "roles": ["usuario"],
+        "permisos": ["leer"],
+        "plan": "premium",
+        "activo": True,
+        "edad": 28
+    },
+    {
+        "id": 4,
+        "nombre": "Usuario Inactivo",
+        "roles": ["usuario"],
+        "permisos": ["leer", "escribir"],
+        "plan": "premium",
+        "activo": False,
+        "edad": 22
+    }
+]
+
+recursos = [
+    {
+        "id": 1,
+        "nombre": "Panel Admin",
+        "requiere_rol": ["admin"],
+        "requiere_permiso": "eliminar",
+        "solo_premium": False,
+        "solo_adultos": False
+    },
+    {
+        "id": 2,
+        "nombre": "Contenido Premium",
+        "requiere_rol": ["usuario", "admin"],
+        "requiere_permiso": "leer",
+        "solo_premium": True,
+        "solo_adultos": False
+    },
+    {
+        "id": 3,
+        "nombre": "Contenido para Adultos",
+        "requiere_rol": ["usuario", "admin"],
+        "requiere_permiso": "leer",
+        "solo_premium": False,
+        "solo_adultos": True
+    },
+    {
+        "id": 4,
+        "nombre": "Foro General",
+        "requiere_rol": ["usuario", "admin"],
+        "requiere_permiso": "leer",
+        "solo_premium": False,
+        "solo_adultos": False
+    }
+]
+
+
+# Función principal
+
+def puede_acceder_recurso(usuario, recurso):
+    """
+    Determina si un usuario puede acceder a un recurso específico.
+    
+    Retorna:
+        (bool, str): acceso (True/False) y explicación del motivo
+    """
+    # 1. Verificar si el usuario está activo
+    if not usuario["activo"]:
+        return False, "Usuario inactivo"
+
+    # 2. Verificar si tiene el rol necesario
+    if "requiere_rol" in recurso:
+        tiene_rol = any(rol in recurso["requiere_rol"] for rol in usuario["roles"])
+        if not tiene_rol:
+            return False, f"Requiere rol: {recurso['requiere_rol']}"
+
+    # 3. Verificar permiso requerido
+    if "requiere_permiso" in recurso and recurso["requiere_permiso"] not in usuario["permisos"]:
+        return False, f"Falta permiso: {recurso['requiere_permiso']}"
+
+    # 4. Verificar plan premium si aplica
+    if recurso.get("solo_premium", False) and usuario["plan"] != "premium":
+        return False, "Requiere plan premium"
+
+    # 5. Verificar restricción de edad
+    if recurso.get("solo_adultos", False) and usuario["edad"] < 18:
+        return False, "Solo para mayores de 18 años"
+
+    # Si pasa todas las verificaciones
+    return True, "Acceso permitido"
+
+
+# Sistema de pruebas
+
+def probar_accesos():
+    """Prueba todas las combinaciones de usuarios y recursos."""
+    print("=" * 60)
+    print("SISTEMA DE CONTROL DE ACCESO - RESULTADOS")
+    print("=" * 60)
+
+    for usuario in usuarios:
+        print(f"\n Usuario: {usuario['nombre']} ({usuario['roles'][0]})")
+        print("-" * 55)
+
+        for recurso in recursos:
+            acceso, motivo = puede_acceder_recurso(usuario, recurso)
+            estado = " PERMITIDO" if acceso else " DENEGADO"
+            print(f" Recurso: {recurso['nombre']}")
+            print(f"   Acceso: {estado}")
+            print(f"   Motivo: {motivo}")
+            print()
+
+
+
+# Ejecución del sistema
+
+probar_accesos()
+
+
+
+
+
+
+
+
+
